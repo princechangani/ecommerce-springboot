@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Welcome to Our E-Commerce Store</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <h1 class="display-4 mb-4">Welcome to Our E-Commerce Store</h1>
+                    <p class="lead mb-5">Discover amazing products at great prices</p>
+                    
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                        <a th:href="@{/login}" class="btn btn-primary btn-lg px-4 me-sm-3">Login</a>
+                        <a th:href="@{/register}" class="btn btn-outline-secondary btn-lg px-4">Register</a>
+                        <a th:href="@{/test/create-test-user}" class="btn btn-outline-info btn-lg px-4">Create Test User</a>
+                    </div>
+                    
+                    <div class="mt-5">
+                        <h2 class="h4 mb-4">Why Choose Us?</h2>
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="card h-100 border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-truck fs-1 text-primary mb-3"></i>
+                                        <h5 class="card-title">Fast Delivery</h5>
+                                        <p class="card-text">Quick and reliable shipping to your doorstep.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card h-100 border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-shield-check fs-1 text-primary mb-3"></i>
+                                        <h5 class="card-title">Secure Payments</h5>
+                                        <p class="card-text">Your payment information is always protected.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card h-100 border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-arrow-repeat fs-1 text-primary mb-3"></i>
+                                        <h5 class="card-title">Easy Returns</h5>
+                                        <p class="card-text">Hassle-free returns within 30 days.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block layout:fragment="scripts">
+        <script th:inline="javascript">
+            // Show success message after registration
+            document.addEventListener('DOMContentLoaded', function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('registered')) {
+                    alert('Registration successful! Please log in with your credentials.');
+                }
+                if (urlParams.has('testuser')) {
+                    alert('Test user created successfully! You can now log in with email: test@example.com and password: Test@123');
+                }
+            });
+        </script>
+    </th:block>
+</body>
+</html>

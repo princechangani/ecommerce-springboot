@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Dashboard - E-Commerce</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="text-center">Welcome to Your Dashboard</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center mb-4">
+                                <h4 th:text="'Hello, ' + ${#authentication.principal.username} + '!'" class="mb-4"></h4>
+                                <p class="lead">You have successfully logged in to your account.</p>
+                            </div>
+                            
+                            <div class="row text-center">
+                                <div class="col-md-4 mb-4">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <i class="bi bi-cart3 fs-1 text-primary"></i>
+                                            <h5 class="card-title mt-3">Your Orders</h5>
+                                            <p class="card-text">Track and manage your orders</p>
+                                            <a href="#" class="btn btn-outline-primary">View Orders</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <i class="bi bi-person-circle fs-1 text-primary"></i>
+                                            <h5 class="card-title mt-3">Profile</h5>
+                                            <p class="card-text">Update your personal information</p>
+                                            <a href="#" class="btn btn-outline-primary">Edit Profile</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <i class="bi bi-shield-lock fs-1 text-primary"></i>
+                                            <h5 class="card-title mt-3">Security</h5>
+                                            <p class="card-text">Change your password</p>
+                                            <a href="#" class="btn btn-outline-primary">Security Settings</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 text-center">
+                                <form th:action="@{/logout}" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-danger">Logout</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+server:
+  port: 7890
+  servlet:
+    context-path: /
+  error:
+    whitelabel:
+      enabled: false
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: ON_PARAM
+    include-exception: true
+
+spring:
+
+  web:
+    resources:
+      static-locations: classpath:/static/
+      add-mappings: true
+      cache:
+        period: 0
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/ecommerceDB}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:goku}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  mvc:
+    cors:
+      allowed-origins:
+        - http://localhost:3000
+      allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+      allowed-headers: accept,authorization,content-type,x-requested-with
+      allow-credentials: true
+    static-path-pattern: /**
+    static-locations: classpath:/static/
+
+  thymeleaf:
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    suffix: .html
+    servlet:
+      content-type: text/html
+
+jwt:
+  secret: ${JWT_SECRET:rWpvGHr9UtJp7yIPh1ChU846gZEwtI72Ux746M9OMbH7374zmpBhe1Ss88xI1mS82X28c5Z5M1R604w5NP1lk2WVx8tsDB0Arj6iCBVLfhuNbDJOeterTP20u7T34TwGk70s8y0w352Kq3gU1DMWYMUvU1QO75NiAVVI1ISTNs6A1w2t6MTYHXg33zcIKSo0V74Sp1B0EKpEWzdS8DuF6Vr0PUFJ9bC6NReM1O11Tvh89J2o4E7w68qbwgo87ut7fm8T6K5y2wo3ZTIQm16fI4j9BL9dyHw2Tr71e03221Lh05N8xyh9K9E94B2sKeZqCwab1s1O9my3PUxW4U65flPS9761bTpR6UrL244ZF9022Aj24fAgr4x0L4G5dA9IO782cxa1rvDm4A3uBP6M62K4Nd22eQb54EW9B06Nz9kX2zo3enr3982XG7Qb5CPt9n6p3d77t86a0czty93V41uPUU8FL8GFYSPmJ599yWlt2r14487UVdg5J8HMo87D}
+  expiration:
+    access: 3600
+    refresh: 86400
+  issuer: ecommerce-app
+logging:
+  level:
+    root: INFO
+    com.project: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.web.servlet: DEBUG
