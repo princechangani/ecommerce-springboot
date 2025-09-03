@@ -3,7 +3,6 @@ package com.project.service;
 import com.project.entity.Address;
 import com.project.entity.User;
 import com.project.exception.ResourceNotFoundException;
-import com.project.exception.ResourceAlreadyExists;
 import com.project.repository.AddressRepository;
 import com.project.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

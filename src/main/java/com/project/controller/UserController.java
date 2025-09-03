@@ -20,13 +20,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-@RequiredArgsConstructor
 @Slf4j
 @Tag(name = "User Management", description = "APIs for managing users")
 @SecurityRequirement(name = "bearerAuth")
 public class UserController {
 
     private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/profile")
     @Operation(summary = "Get current user profile", description = "Retrieve the profile of the currently authenticated user")

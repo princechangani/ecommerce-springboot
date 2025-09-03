@@ -2,8 +2,8 @@ package com.project.controller;
 
 import com.project.dto.LoginRequest;
 import com.project.dto.RegisterRequest;
-import com.project.security.AuthenticationResponse;
-import com.project.security.AuthenticationService;
+import com.project.dto.AuthenticationResponse;
+import com.project.service.AuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

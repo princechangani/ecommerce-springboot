@@ -1,11 +1,14 @@
-package com.project.security;
+package com.project.service;
 
+import com.project.dto.AuthenticationResponse;
 import com.project.dto.LoginRequest;
 import com.project.dto.RegisterRequest;
 import com.project.entity.User;
 import com.project.enums.UserType;
 import com.project.exception.AppException;
 import com.project.repository.UserRepository;
+import com.project.security.JwtTokenService;
+import com.project.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -53,19 +56,16 @@ public class AuthenticationService {
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                 loginRequest.getEmail(),
-                loginRequest.getPassword()
-            )
+                loginRequest.getPassword())
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         String accessToken = jwtTokenService.generateToken(userPrincipal);
-        String refreshToken = jwtTokenService.generateRefreshToken(userPrincipal);
-        
+
         return new AuthenticationResponse(
             accessToken,
-            refreshToken,
             userPrincipal.getId(),
             userPrincipal.getUsername(),
             userPrincipal.getAuthorities()

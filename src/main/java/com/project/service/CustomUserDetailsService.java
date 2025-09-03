@@ -1,7 +1,8 @@
-package com.project.security;
+package com.project.service;
 
 import com.project.entity.User;
 import com.project.repository.UserRepository;
+import com.project.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

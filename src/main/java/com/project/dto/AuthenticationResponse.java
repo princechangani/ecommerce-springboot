@@ -1,4 +1,4 @@
-package com.project.security;
+package com.project.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,10 +14,9 @@ import java.util.Collection;
 @AllArgsConstructor
 public class AuthenticationResponse {
     private String token;
-    private String refreshToken;
     private String message;
     private boolean success;
 
-    public AuthenticationResponse(String accessToken, String refreshToken, Long id, String username, Collection<? extends GrantedAuthority> authorities) {
+    public AuthenticationResponse(String accessToken,Long id, String username, Collection<? extends GrantedAuthority> authorities) {
     }
 }

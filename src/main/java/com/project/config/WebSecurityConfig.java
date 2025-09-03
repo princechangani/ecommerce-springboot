@@ -37,8 +37,8 @@ public class WebSecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     public WebSecurityConfig(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
-                           JwtAccessDeniedHandler jwtAccessDeniedHandler,
-                           JwtAuthenticationFilter jwtAuthenticationFilter) {
+                             JwtAccessDeniedHandler jwtAccessDeniedHandler,
+                             JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
@@ -48,21 +48,21 @@ public class WebSecurityConfig {
     @Order(1)
     public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
         http
-            .securityMatcher("/api/**")
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(AbstractHttpConfigurer::disable)
-            .exceptionHandling(exception -> exception
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .accessDeniedHandler(jwtAccessDeniedHandler)
-            )
-            .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers(SecurityConstants.PUBLIC_URLS).permitAll()
-                .anyRequest().authenticated()
-            )
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .securityMatcher("/api/**")
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable)
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                        .accessDeniedHandler(jwtAccessDeniedHandler)
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(SecurityConstants.PUBLIC_URLS).permitAll()
+                        .anyRequest().authenticated()
+                )
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -71,35 +71,35 @@ public class WebSecurityConfig {
     @Order(2)
     public SecurityFilterChain webFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.ignoringRequestMatchers(
-                "/api/**",
-                "/css/**",
-                "/js/**",
-                "/images/**",
-                "/webjars/**"
-            ))
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                    "/",
-                    "/home",
-                    "/register",
-                    "/login",
-                    "/test/create-test-user",
-                    "/css/**",
-                    "/js/**",
-                    "/images/**",
-                    "/webjars/**",
-                    "/favicon.ico",
-                    "/error/**"
-                ).permitAll()
-                .anyRequest().authenticated()
-            )
-            .exceptionHandling(exception -> exception
-                .accessDeniedPage("/error/403")
-            )
-            .headers(headers -> headers
-                .cacheControl(cache -> cache.disable())
-            );
+                .csrf(csrf -> csrf.ignoringRequestMatchers(
+                        "/api/**",
+                        "/css/**",
+                        "/js/**",
+                        "/images/**",
+                        "/webjars/**"
+                ))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/",
+                                "/home",
+                                "/register",
+                                "/login",
+                                "/test/**", // Allow all test endpoints
+                                "/css/**",  // Explicitly allow CSS
+                                "/js/**",   // Explicitly allow JS
+                                "/images/**", // Explicitly allow images
+                                "/webjars/**", // Allow webjars
+                                "/favicon.ico",
+                                "/error/**"
+                        ).permitAll()
+                        .anyRequest().authenticated()
+                )
+                .exceptionHandling(exception -> exception
+                        .accessDeniedPage("/error/403")
+                )
+                .headers(headers -> headers
+                        .cacheControl(cache -> cache.disable())
+                );
 
         return http.build();
     }
@@ -122,7 +122,7 @@ public class WebSecurityConfig {
         configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
         configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
         configuration.setAllowCredentials(true);
-        
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

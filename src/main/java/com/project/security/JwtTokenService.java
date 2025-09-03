@@ -25,9 +25,6 @@ public class JwtTokenService {
     @Value("${jwt.expiration.access:3600}")
     private long accessTokenExpiration;
 
-    @Value("${jwt.expiration.refresh:86400}")
-    private long refreshTokenExpiration;
-
     @Value("${jwt.issuer}")
     private String issuer;
 
@@ -46,20 +43,8 @@ public class JwtTokenService {
         return createToken(claims, userPrincipal.getUsername(), accessTokenExpiration);
     }
 
-    public String generateRefreshToken(UserPrincipal userPrincipal) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("id", userPrincipal.getId());
-        claims.put("type", "refresh");
-        return createToken(claims, userPrincipal.getUsername(), refreshTokenExpiration);
-    }
 
-    public String generateRefreshToken(User user) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("id", user.getId());
-        claims.put("email", user.getEmail());
-        claims.put("type", "refresh");
-        return createToken(claims, user.getEmail(), refreshTokenExpiration);
-    }
+
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
